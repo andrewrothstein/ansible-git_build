@@ -1,0 +1,12 @@
+---
+# defaults file for git_build
+git_build_ver: 2.23.0
+git_build_mirror: https://github.com/git/git/archive
+
+git_build_escalate: True
+git_build_parent_dir: /usr/local
+
+git_build_checksums:
+  # https://github.com/git/git/archive/v2.23.0.tar.gz
+  '2.23.0': sha256:7d84f5d6f48e95b467a04a8aa1d474e0d21abc7877998af945568d2634fea46a
+

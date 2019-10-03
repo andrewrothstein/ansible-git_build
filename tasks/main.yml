@@ -1,0 +1,54 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for existing install
+  stat:
+    path: '{{ git_build_target_bin }}'
+  changed_when: False
+  register: git_build_binary
+- when: not git_build_binary.stat.exists
+  block:
+    - name: download
+      become: '{{ git_build_escalate }}'
+      become_user: root
+      get_url:
+        url: '{{ git_build_url }}'
+        dest: /tmp/{{ git_build_tgz }}
+        mode: 0644
+    - name: unarchive
+      become: '{{ git_build_escalate }}'
+      become_user: root
+      unarchive:
+        remote_src: yes
+        src: /tmp/{{ git_build_tgz }}
+        dest: '{{ git_build_src_parent_dir }}'
+        creates: '{{ git_build_src_dir }}'
+    - name: build
+      become: '{{ git_build_escalate }}'
+      become_user: root
+      with_items:
+        - make configure
+        - ./configure --prefix={{ git_build_parent_dir }}
+        - make all
+        - make install
+      command: '{{ item }}'
+      args:
+        chdir: '{{ git_build_src_dir }}'
+  always:
+    - name: cleanup
+      become: '{{ git_build_escalate }}'
+      become_user: root
+      with_items:
+        - /tmp/{{ git_build_tgz }}
+        - '{{ git_build_src_dir }}'
+      file:
+        path: '{{ item }}'
+        state: absent

@@ -1,0 +1,14 @@
+---
+# vars file for git_build
+git_build_url: '{{ git_build_mirror }}/v{{ git_build_ver }}.tar.gz'
+git_build_tgz: git-src-v{{ git_build_ver }}.tar.gz
+git_build_checksum: '{{ git_build_checksums[git_build_ver] }}'
+
+git_build_src_parent_dir: '{{ git_build_parent_dir }}/src'
+git_build_src_dir: '{{ git_build_src_parent_dir }}/git-{{ git_build_ver }}'
+
+git_build_bin_dir: '{{ git_build_parent_dir }}/bin'
+
+
+git_build_target_bin: '{{ git_build_bin_dir }}/git'
+
