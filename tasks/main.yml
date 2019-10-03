@@ -9,6 +9,12 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
+- name: install os dep pkgs
+  become: yes
+  become_user: root
+  package:
+    name: '{{ git_build_os_pkgs | default([]) }}'
+    state: present
 - name: check for existing install
   stat:
     path: '{{ git_build_target_bin }}'
@@ -16,6 +22,13 @@
   register: git_build_binary
 - when: not git_build_binary.stat.exists
   block:
+    - name: ensure src dir exists
+      become: '{{ git_build_escalate }}'
+      become_user: root
+      file:
+        path: '{{ git_build_src_parent_dir }}'
+        state: directory
+        mode: 0755
     - name: download
       become: '{{ git_build_escalate }}'
       become_user: root

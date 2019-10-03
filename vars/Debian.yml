@@ -1,0 +1,6 @@
+---
+git_build_os_pkgs:
+  - libcurl4-gnutls-dev
+  - libexpat1-dev
+  - gettext
+  - libz-dev

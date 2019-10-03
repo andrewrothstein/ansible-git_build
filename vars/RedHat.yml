@@ -1,0 +1,7 @@
+---
+git_build_os_pkgs:
+  - curl-devel
+  - expat-devel
+  - gettext-devel
+  - perl-devel
+  - zlib-devel
