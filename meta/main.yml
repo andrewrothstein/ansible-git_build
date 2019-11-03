@@ -1,41 +1,39 @@
----
+dependencies:
+- role: andrewrothstein.gcc-toolbox
+  version: v1.0.14
+- role: andrewrothstein.unarchive-deps
+  version: v1.1.2
+- openssl_include_dev_pkgs: true
+  role: andrewrothstein.openssl
+  version: v1.0.2
 galaxy_info:
   author: Andrew Rothstein
-  description: builds/installs git from source
   company: BlackRock Financial Management
+  description: builds/installs git from source
+  galaxy_tags:
+  - development
   license:
-    - MIT
+  - MIT
   min_ansible_version: 2.0
   platforms:
-    - name: EL
-      versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
-    - name: Ubuntu
-      versions:
-        - all
-    - name: Alpine
-      versions:
-        - all
-    - name: Archlinux
-      versions:
-        - all
-    - name: Debian
-      versions:
-        - buster
-        - jessie
-        - stretch
-  galaxy_tags:
-    - development
+  - name: EL
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Alpine
+    versions:
+    - all
+  - name: Archlinux
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - buster
+    - jessie
+    - stretch
   role_name: git_build
-
-dependencies:
-  - role: andrewrothstein.gcc-toolbox
-    version: v1.0.14
-  - role: andrewrothstein.unarchive-deps
-    version: v1.1.1
-  - role: andrewrothstein.openssl
-    version: v1.0.2
-    openssl_include_dev_pkgs: True
