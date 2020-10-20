@@ -9,6 +9,4 @@ git_build_src_dir: '{{ git_build_src_parent_dir }}/git-{{ git_build_ver }}'
 
 git_build_bin_dir: '{{ git_build_parent_dir }}/bin'
 
-
 git_build_target_bin: '{{ git_build_bin_dir }}/git'
-
