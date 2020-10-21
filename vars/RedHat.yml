@@ -5,3 +5,6 @@ git_build_os_pkgs:
   - gettext-devel
   - perl-devel
   - zlib-devel
+  - tcl
+  - asciidoc
+  - xmlto
