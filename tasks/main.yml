@@ -47,14 +47,9 @@
     - name: building...
       become: '{{ git_build_escalate }}'
       become_user: root
-      with_items:
-        - make configure
-        - '{{ git_build_src_dir }}/configure --prefix={{ git_build_parent_dir }}'
-        - make all
-        - make install
-      command: '{{ item }}'
       args:
         chdir: '{{ git_build_src_dir }}'
+      shell: autoconf && {{ git_build_src_dir }}/configure --prefix={{ git_build_parent_dir }} && make && make install &&  make man && make install-man
   always:
     - name: rm {{ git_build_tmp_tgz }} and {{ git_build_src_dir }}
       become: '{{ git_build_escalate }}'
