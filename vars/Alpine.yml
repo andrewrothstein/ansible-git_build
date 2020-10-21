@@ -2,3 +2,6 @@
 git_build_os_pkgs:
   - curl-dev
   - zlib-dev
+  - tcl
+  - asciidoc
+  - xmlto
