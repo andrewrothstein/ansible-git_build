@@ -1,7 +1,0 @@
----
-git_build_os_pkgs:
-  - curl
-  - zlib
-  - tcl
-  - asciidoc
-  - xmlto

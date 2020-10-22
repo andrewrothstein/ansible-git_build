@@ -4,3 +4,6 @@ git_build_os_pkgs:
   - libexpat1-dev
   - gettext
   - libz-dev
+  - tcl
+  - asciidoc
+  - xmlto
