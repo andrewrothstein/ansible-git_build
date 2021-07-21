@@ -1,6 +1,6 @@
 andrewrothstein.git_build
 =========
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-git_build.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-git_build)
+![Build Status](https://github.com/andrewrothstein/ansible-git_build/actions/workflows/build.yml/badge.svg)
 
 Builds and installs [git](https://github.com/git/git) from source.
 
