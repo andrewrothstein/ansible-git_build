@@ -1,12 +1,9 @@
 ---
 dependencies:
-- role: andrewrothstein.gcc-toolbox
-  version: v1.1.3
-- role: andrewrothstein.unarchive-deps
-  version: v1.2.1
+- andrewrothstein.gcc-toolbox
+- andrewrothstein.unarchive-deps
 - openssl_include_dev_pkgs: true
   role: andrewrothstein.openssl
-  version: v1.0.6
 galaxy_info:
   author: Andrew Rothstein
   company: BlackRock Financial Management
@@ -29,8 +26,8 @@ galaxy_info:
     - 8
   - name: Fedora
     versions:
-    - 34
     - 35
+    - 36
   - name: Ubuntu
     versions:
     - bionic
