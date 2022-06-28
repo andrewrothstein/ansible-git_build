@@ -10,7 +10,7 @@
       paths:
         - '{{ role_path }}/vars'
 - name: install os dep pkgs
-  become: yes
+  become: true
   become_user: root
   package:
     name: '{{ git_build_os_pkgs | default([]) }}'
@@ -18,7 +18,7 @@
 - name: check for existence of {{ git_build_target_bin }}...
   stat:
     path: '{{ git_build_target_bin }}'
-  changed_when: False
+  changed_when: false
   register: git_build_binary
 - when: not git_build_binary.stat.exists
   block:
@@ -40,7 +40,8 @@
       become: '{{ git_build_escalate }}'
       become_user: root
       unarchive:
-        remote_src: yes
+        remote_src: true
+
         src: '{{ git_build_tmp_tgz }}'
         dest: '{{ git_build_src_parent_dir }}'
         creates: '{{ git_build_src_dir }}'
