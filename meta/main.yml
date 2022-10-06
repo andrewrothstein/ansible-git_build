@@ -1,9 +1,4 @@
 ---
-dependencies:
-- andrewrothstein.gcc-toolbox
-- andrewrothstein.unarchive-deps
-- openssl_include_dev_pkgs: true
-  role: andrewrothstein.openssl
 galaxy_info:
   author: Andrew Rothstein
   company: BlackRock Financial Management
