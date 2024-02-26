@@ -61,7 +61,8 @@
       become_user: root
       args:
         chdir: '{{ git_build_src_dir }}'
-      shell: |-
+      changed_when: false
+      ansible.builtin.shell: |-
         autoconf \
         && {{ git_build_src_dir }}/configure --prefix={{ git_build_parent_dir }} \
         && make \
