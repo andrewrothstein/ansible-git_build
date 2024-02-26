@@ -8,6 +8,6 @@
       ansible.builtin.command: /usr/local/bin/git --version
       changed_when: false
       register: git_build_test_output
-  - name: Output of 'git --version'
-    ansible.builtin.debug:
-      msg: '{{ git_build_test_output.stdout }}'
+    - name: Output of 'git --version'
+      ansible.builtin.debug:
+        msg: '{{ git_build_test_output.stdout }}'
