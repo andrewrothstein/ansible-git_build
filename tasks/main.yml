@@ -1,14 +1,17 @@
 ---
-- include_role:
+- name: Installing andrewrothstein.gcc_toolbox
+  ansible.builtin.include_role:
     name: andrewrothstein.gcc_toolbox
-- include_role:
+- name: Installing andrewrothstein.unarchivedeps
+  ansible.builtin.include_role:
     name: andrewrothstein.unarchivedeps
-- include_role:
+- name: Installing andrewrothstein.openssl
+  ansible.builtin.include_role:
     name: andrewrothstein.openssl
   vars:
     openssl_include_dev_pkgs: true
-- name: resolve platform specific vars
-  include_vars: '{{ item }}'
+- name: Resolve platform specific vars
+  ansible.builtin.include_vars: '{{ item }}'
   with_first_found:
     - files:
         - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
@@ -17,55 +20,61 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
-- name: install os dep pkgs
+- name: Install os dep pkgs
   become: true
   become_user: root
-  package:
+  ansible.builtin.package:
     name: '{{ git_build_os_pkgs | default([]) }}'
     state: present
-- name: check for existence of {{ git_build_target_bin }}...
-  stat:
+- name: Check for existence of {{ git_build_target_bin }}...
+  ansible.builtin.stat:
     path: '{{ git_build_target_bin }}'
   changed_when: false
   register: git_build_binary
-- when: not git_build_binary.stat.exists
+- name: Downloading, building and installing git
+  when: not git_build_binary.stat.exists
   block:
-    - name: mkdir {{ git_build_src_parent_dir }}...
+    - name: Mkdir {{ git_build_src_parent_dir }}...
       become: '{{ git_build_escalate }}'
       become_user: root
-      file:
+      ansible.builtin.file:
         path: '{{ git_build_src_parent_dir }}'
         state: directory
-        mode: 0755
-    - name: downloading {{ git_build_url }} to {{ git_build_tmp_tgz }}
+        mode: '755'
+    - name: Downloading {{ git_build_url }} to {{ git_build_tmp_tgz }}
       become: '{{ git_build_escalate }}'
       become_user: root
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ git_build_url }}'
         dest: '{{ git_build_tmp_tgz }}'
-        mode: 0644
-    - name: unarchive {{ git_build_tmp_tgz }} to {{ git_build_src_parent_dir }}...
+        mode: '644'
+    - name: Unarchive {{ git_build_tmp_tgz }} to {{ git_build_src_parent_dir }}...
       become: '{{ git_build_escalate }}'
       become_user: root
-      unarchive:
+      ansible.builtin.unarchive:
         remote_src: true
-
         src: '{{ git_build_tmp_tgz }}'
         dest: '{{ git_build_src_parent_dir }}'
         creates: '{{ git_build_src_dir }}'
-    - name: building...
+    - name: Building...
       become: '{{ git_build_escalate }}'
       become_user: root
       args:
         chdir: '{{ git_build_src_dir }}'
-      shell: autoconf && {{ git_build_src_dir }}/configure --prefix={{ git_build_parent_dir }} && make && make install &&  make man && make install-man
+      shell: |-
+        autoconf \
+        && {{ git_build_src_dir }}/configure --prefix={{ git_build_parent_dir }} \
+        && make \
+        && make install \
+        && make man \
+        && make install-man
   always:
-    - name: rm {{ git_build_tmp_tgz }} and {{ git_build_src_dir }}
+    - name: Rm {{ git_build_tmp_tgz }} and {{ git_build_src_dir }}
       become: '{{ git_build_escalate }}'
       become_user: root
       with_items:
         - '{{ git_build_tmp_tgz }}'
         - '{{ git_build_src_dir }}'
-      file:
+      ansible.builtin.file:
         path: '{{ item }}'
         state: absent
