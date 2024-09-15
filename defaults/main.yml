@@ -1,6 +1,6 @@
 ---
 # defaults file for git_build
-git_build_ver: 2.46.0
+git_build_ver: 2.46.1
 git_build_mirror: https://github.com/git/git/archive
 
 git_build_escalate: true
@@ -85,3 +85,5 @@ git_build_checksums:
   '2.45.2': sha256:8422abc4a16e389220d8da15e12d712f4e6219846ddd8b112e9b31f3087ddf9b
   # https://github.com/git/git/archive/v2.46.0.tar.gz
   '2.46.0': sha256:d9a72f1648406806d2cb3049b4a73f357e2dc8df5d2962ce6d24220f3861a221
+  # https://github.com/git/git/archive/v2.46.1.tar.gz
+  '2.46.1': sha256:9ddbaa79efa7a55efc30acceb0a37949f16dcab0734e36a6ad46a835aa8400f0
