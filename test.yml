@@ -5,7 +5,7 @@
     - role: '{{ playbook_dir }}'
   tasks:
     - name: Executing 'git --version'
-      ansible.builtin.command: /usr/local/bin/git --version
+      ansible.builtin.command: git --version
       changed_when: false
       register: git_build_test_output
     - name: Output of 'git --version'
